@@ -11,3 +11,18 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
     data: {type: Date, default: Date.now},
     admin: Boolean
   });
+
+  const User = mongoose.model('User', userSchema);
+  async function createUser(){
+    const user = new User({
+      first_name : 'Ali', 
+      last_name: 'Rahimi', 
+      favorites: ['Productivity', 'Programming', 'Football'],
+      admin: true,
+    });
+
+    const result = await user.save();
+    console.log(result);
+  }
+
+  //createUser();
