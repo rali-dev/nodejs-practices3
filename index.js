@@ -47,7 +47,7 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
  // User.find({age: {$nin: [27, 30, 35]}}) 
  
  // .or() & .and() Query in Mongoose
- 
+
   // OR query
   // User.find({
   //   $or: [
@@ -64,3 +64,14 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   //     { city: 'Berlin' }
   //   ]
   // })
+
+  // pagination 
+  //  async function getUsers(){
+  //    const pageNumber = 1;
+  //    const pageSize = 8;
+  //    const users = await User.find()
+  //     .skip((pageNumber -1) * pageSize)
+  //     .limit(pageSize) 
+  //    console.log(users);
+  // }
+  // getUsers();
