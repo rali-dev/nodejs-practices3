@@ -32,7 +32,7 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
          .select({first_name: 1, last_name: 1});
      console.log(users);
   }
-  getUsers();
+ // getUsers();
 
  // MongoDB Comparison Query Operators
  // $eq, $ne, $gt, $gte, $lt, $lte, $in, $nin
@@ -75,3 +75,21 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   //    console.log(users);
   // }
   // getUsers();
+
+  async function updateUser(id){
+    const user = await User.findById(id);
+    // const user = await User.find({_id: id});
+    // const user = await User.findOne({_id: id});
+    if(!user) return;
+    // user.admin = true;
+    // user.first_name = 'updated name';
+    
+    user.set({
+      admin: true,
+      last_name: 'Rahimi',
+    });
+    const result = await user.save();
+    console.log(result);
+  }
+
+  //updateUser('68ce75022bb5bf328f68f1a9');
