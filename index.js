@@ -25,4 +25,11 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
     console.log(result);
   }
 
+  async function getUsers(){
+     const users = await User.find({first_name: 'Ali'}).limit(5)
+         .sort({first_name: -1})
+         .select({first_name: 1, last_name: 1});
+     console.log(users);
+  }
+ getUsers();
   //createUser();
