@@ -32,8 +32,35 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
          .select({first_name: 1, last_name: 1});
      console.log(users);
   }
- getUsers();
- 
+  getUsers();
+
  // MongoDB Comparison Query Operators
  // $eq, $ne, $gt, $gte, $lt, $lte, $in, $nin
+
+ // User.find({age: {$eq: 27}}) 
+ // User.find({age: {$eq: 27}}) 
+ // User.find({age: {$gt: 27}}) 
+ // User.find({age: {$gte: 27}}) 
+ // User.find({age: {$lt: 27}}) 
+ // User.find({age: {$lte: 27}}) 
+ // User.find({age: {$in: [27, 30, 35]}}) 
+ // User.find({age: {$nin: [27, 30, 35]}}) 
  
+ // .or() & .and() Query in Mongoose
+ 
+  // OR query
+  // User.find({
+  //   $or: [
+  //     { city: 'Berlin' },
+  //     { city: 'New York' }
+  //   ]
+  // })
+
+  // AND query
+  // User.find({
+  //   $and: [
+  //     { first_name: 'Ali' },
+  //     { last_name: 'Rahimi' },
+  //     { city: 'Berlin' }
+  //   ]
+  // })
