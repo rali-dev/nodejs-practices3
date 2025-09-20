@@ -76,20 +76,50 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   // }
   // getUsers();
 
-  async function updateUser(id){
-    const user = await User.findById(id);
-    // const user = await User.find({_id: id});
-    // const user = await User.findOne({_id: id});
-    if(!user) return;
-    // user.admin = true;
-    // user.first_name = 'updated name';
+  // first approach to update a document_______
+
+  // async function updateUser(id){
+  //   const user = await User.findById(id);
+  //   // const user = await User.find({_id: id});
+  //   // const user = await User.findOne({_id: id});
+  //   if(!user) return;
+  //   // user.admin = true;
+  //   // user.first_name = 'updated name';
     
-    user.set({
-      admin: true,
-      last_name: 'Rahimi',
-    });
-    const result = await user.save();
-    console.log(result);
-  }
+  //   user.set({
+  //     admin: true,
+  //     last_name: 'updated name 1',
+  //   });
+  //   const result = await user.save();
+  //   console.log(result);
+  // }
 
   //updateUser('68ce75022bb5bf328f68f1a9');
+
+  // second approach to update a document_______
+
+  // async function updateUser(id){
+  //   // const user = await User.findByIdAndUpdate(id, {
+  //   // const user = await User.updateMany({_id: id}, {
+  //     const result = await User.updateOne({_id: id}, {
+  //     $set: {
+  //       admin: true,
+  //       last_name: 'updated name 2',
+  //     }
+  //   });
+
+  //   console.log(result);
+  // }
+  // updateUser('68ce75022bb5bf328f68f1a9');
+
+    async function updateUser(id){
+      const result = await User.findByIdAndUpdate(id, {
+      $set: {
+        admin: true,
+        last_name: 'updated name 2',
+      }
+    }, {new: true}); // to return the updated document
+
+    console.log(result);
+  }
+  updateUser('68ce75022bb5bf328f68f1a9');
