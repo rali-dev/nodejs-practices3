@@ -6,6 +6,7 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
 
   const userSchema = new mongoose.Schema({
     first_name : String, 
+    // last_name : {type: String, required: function(){ return this.admin; }},
     last_name : {type: String, required: true}, 
     favorites: [String], 
     data: {type: Date, default: Date.now},
@@ -16,15 +17,19 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   async function createUser(){
     const user = new User({
       first_name : 'Ali', 
-      last_name: 'Rahimi', 
+      // last_name: 'Rahimi', 
       favorites: ['Productivity', 'Programming', 'Football'],
       admin: true,
     });
 
-    const result = await user.save();
-    console.log(result);
+    try {
+      const result = await user.save();
+      console.log(result);
+    } catch (ex) {
+        console.log(ex.message);
+    }
   }
-  //createUser();
+  createUser();
   
   async function getUsers(){
      const users = await User.find({first_name: 'Ali'}).limit(5)
@@ -125,7 +130,7 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   // updateUser('68ce75022bb5bf328f68f1a9');
 
   // Deleting a document_______
-  
+
   async function removeUser(id){
     // const user = await User.findByIdAndRemove(id);
     // const result = await User.deleteMany({admin: false});
