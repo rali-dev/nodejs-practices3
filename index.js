@@ -122,4 +122,15 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
 
     console.log(result);
   }
-  updateUser('68ce75022bb5bf328f68f1a9');
+  // updateUser('68ce75022bb5bf328f68f1a9');
+
+  // Deleting a document_______
+  
+  async function removeUser(id){
+    // const user = await User.findByIdAndRemove(id);
+    // const result = await User.deleteMany({admin: false});
+    const result = await User.deleteOne({_id: id});
+    console.log(result);
+  }
+
+  //  removeUser('68ce75022bb5bf328f68f1a9');
