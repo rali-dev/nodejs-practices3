@@ -9,18 +9,27 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
     // last_name : {type: String, required: function(){ return this.admin; }},
     last_name : {type: String, required: true}, 
     age: {type: Number, min: 18, max: 120, required: true},
-    favorites: {type: [String], enum: [
-       'Programming',
-       'Football',
-       'Cooking',
-       'Productivity',
-       'Sport',
-       'Music',
-       'Data Science',
-       'Art',
-       'Traveling',
-       'Movies'
-      ]}, 
+    favorites: {
+      type: [String], 
+      validate:{
+        validator: function(v){
+          return v && v.length > 0;
+        }, 
+        message: 'A user should have at least one favorite'
+      },
+      enum: [
+        'Programming',
+        'Football',
+        'Cooking',
+        'Productivity',
+        'Sport',
+        'Music',
+        'Data Science',
+        'Art',
+        'Traveling',
+        'Movies'
+      ]
+    }, 
     data: {type: Date, default: Date.now},
     admin: Boolean
   });
@@ -31,6 +40,8 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
       first_name : 'Ali', 
       last_name: 'Rahimi', 
       favorites: ['Productivity', 'Programming', 'Football'],
+      // favorites: [], 
+      age: 27,
       admin: true,
     });
 
@@ -41,7 +52,7 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
         console.log(ex.message);
     }
   }
-  // createUser();
+  createUser();
   
   async function getUsers(){
      const users = await User.find({first_name: 'Ali'}).limit(5)
