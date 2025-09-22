@@ -5,9 +5,10 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   .catch((err)=> console.log('could not connect to mongodb'));
 
   const userSchema = new mongoose.Schema({
-    first_name : {type: String, minlength: 3, maxlength: 50, required: true}, 
+    first_name : {type: String, minlength: 3, maxlength: 50, lowercase: true, trim: true}, 
     // last_name : {type: String, required: function(){ return this.admin; }},
     last_name : {type: String, required: true}, 
+    salary: {type: Number, required: true, set: v => Math.round(v), get: v => Math.round(v)},
     age: {type: Number, min: 18, max: 120, required: true},
     favorites: {
       type: [String], 
@@ -39,6 +40,7 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
     const user = new User({
       first_name : 'Ali', 
       last_name: 'Rahimi', 
+      salary: 55000.50,
       favorites: ['Productivity', 'Programming', 'Football'],
       // favorites: [], 
       age: 27,
@@ -52,7 +54,8 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
         console.log(ex.message);
     }
   }
-  createUser();
+ 
+ // createUser();
   
   async function getUsers(){
      const users = await User.find({first_name: 'Ali'}).limit(5)
@@ -162,3 +165,10 @@ mongoose.connect('mongodb://localhost:27017/mongoproject')
   }
 
   //  removeUser('68ce75022bb5bf328f68f1a9');
+
+  async function getUsers(){
+    const users = await User.find({_id: '68ce75022bb5bf328f68f1a9'});
+    console.log(users[0].salary);
+  }
+
+  getUsers();
